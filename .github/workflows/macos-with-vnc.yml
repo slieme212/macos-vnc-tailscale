@@ -20,14 +20,12 @@ jobs:
         VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
       run: source configure.sh "$VNC_USER_PASSWORD" "$VNC_PASSWORD" "$TAILSCALE_AUTHKEY"
     
-    - name: Tailscale is now listening to VNC connections on...
+    - name: Show Connection Info & Keep Alive
       run: |
         echo "=== CONNECTION INFO ==="
         echo "Tailscale IP: $(sudo tailscale ip -4)"
         echo "VNC Port: 5900"
-        echo "SSH Port: 22"
         echo "Username: vncuser"
         echo "======================"
-    
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v2
+        echo "الجهاز هيفضل شغال لمدة 6 ساعات..."
+        sleep 21600
