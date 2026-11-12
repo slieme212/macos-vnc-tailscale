@@ -13,5 +13,21 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     
+    - name: Setting the environment up.
+      env:
+        TAILSCALE_AUTHKEY: ${{ secrets.TAILSCALE_AUTHKEY }}
+      run: |
+        # Install Tailscale
+        brew install tailscale
+        # Start Tailscale daemon
+        sudo tailscaled --state=mem: &
+        sleep 5
+        # Connect to Tailscale
+        sudo tailscale up --authkey=$TAILSCALE_AUTHKEY --hostname=gh-macos-ssh
+        echo "=== SSH CONNECTION INFO ==="
+        echo "Tailscale IP: $(sudo tailscale ip -4)"
+        echo "Username: runner"
+        echo "=========================="
+
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v2
